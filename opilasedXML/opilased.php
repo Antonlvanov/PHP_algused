@@ -36,7 +36,7 @@
     <h2>TARpv23</h2>
     <h3>Õpilaste otsing</h3>
     <div id="search-form">
-        <form method="post" onsubmit="return kontroll()" action="?">
+        <form method="post" onsubmit="return kontroll('otsing')" action="?">
             <label for="otsing">Täisnimi / Nimi / Perakonnanimi:</label>
             <br>
             <input type="text" id="otsing" name="otsing" placeholder="Otsi nimi järgi" autofocus>
@@ -44,7 +44,7 @@
         </form>
     </div>
     <div id="search-form">
-        <form method="post" onsubmit="return kontroll()" action="?">
+        <form method="post" onsubmit="return kontroll('sugu')" action="?">
             <label for="sugu">Sugu:</label>
             <br>
             <input type="text" id="sugu" name="sugu" placeholder="Otsi sugu järgi">
@@ -139,7 +139,7 @@
                 $uus_opilane_andmed->appendChild($opilased_doc->createElement('juuksevarv', htmlspecialchars($_POST['juuksevarv_sisend'])));
 
                 $opilased_doc->save('opilased.xml');
-                showAlert();
+                echo "<p>Õpilane lisatud</p>";
                 exit();
             }
             else {
@@ -149,8 +149,8 @@
         ?>
     </div>
     <script>
-        function kontroll() {
-            const name = document.getElementById("otsing").value;
+        function kontroll(field) {
+            const name = document.getElementById(field).value;
             if (name == "") {
                 alert("Sisesta andmed");
                 return false;
