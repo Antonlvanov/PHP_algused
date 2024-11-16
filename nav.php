@@ -12,5 +12,11 @@
         <li>
             <a href="?leht=ajafunktsioonid.php">Ajafunktsioonid</a>
         </li>
+        <li>
+            <a href="?leht=massiivid.php">Massiivid</a>
+        </li>
+        <li>
+            <a href="opilasedXML/opilased.php" target="_blank">Õpilased XML</a>
+        </li>
     </ul>
 </nav>

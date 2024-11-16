@@ -1,25 +1,26 @@
-<?php
-echo "<h2>Ajafunktsioonid</h2>";
-//echo "<div id='kuupaev'>";
-echo "Täna on ".date("d.m.Y")."<br>";
-date_default_timezone_set("Europe/Tallinn");
-echo "<strong>";
-echo "Tänane Tallinna kuupäev ja kellaeg on ".date("d.m.Y G:i", time())."<br>";
-echo "</strong>";
-echo "<br>";
-echo "date('d.m.Y G:i'), time()";
-echo "<br>";
-echo "d - kuupäev 1-31";
-echo "<br>";
-echo "m - kuu numbrina 1-12";
-echo "<br>";
-echo "y - aasta neljakohane";
-echo "<br>";
-echo "G - tunniformaat 0 - 23";
-echo "<br>";
-echo "i - minutid 0 - 59";
-echo "<br>";
-?>
+<div id="ajafunk">
+    <h2>Ajafunktsioonid</h2>
+    <?php
+    echo "Täna on ".date("d.m.Y")."<br>";
+    date_default_timezone_set("Europe/Tallinn");
+    echo "<strong>";
+    echo "Tänane Tallinna kuupäev ja kellaeg on ".date("d.m.Y G:i", time())."<br>";
+    echo "</strong>";
+    echo "<br>";
+    echo "date('d.m.Y G:i'), time()";
+    echo "<br>";
+    echo "d - kuupäev 1-31";
+    echo "<br>";
+    echo "m - kuu numbrina 1-12";
+    echo "<br>";
+    echo "y - aasta neljakohane";
+    echo "<br>";
+    echo "G - tunniformaat 0 - 23";
+    echo "<br>";
+    echo "i - minutid 0 - 59";
+    echo "<br>";
+    ?>
+</div>
 <div id="hooaeg">
     <h3>Väljenda vastavalt hooajale pilt</h3>
     <?php
@@ -44,7 +45,7 @@ echo "<br>";
             break;
         case ($today>=$autumn && $today<$winter):
             $tanaon = "Sügis";
-            $picture='content/img/winter.jpg';
+            $picture='content/img/autumn.jpg';
             break;
         case ($today>=$winter && $today<$spring):
             $tanaon = "Talv";
@@ -113,3 +114,6 @@ echo "<br>";
     ?>
 </div>
 
+<?php
+highlight_file('ajafunktsioonid.php');
+?>
