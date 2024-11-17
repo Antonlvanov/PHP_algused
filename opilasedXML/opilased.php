@@ -57,7 +57,7 @@
                 }
                 echo "</div>";
             } else {
-                echo "<p class='not-found'>Ei leidnud!</p>";
+                echo "<p class='error'>Ei leidnud!</p>";
             }
         }
 
@@ -115,14 +115,16 @@
                 $uus_opilane_andmed->appendChild($opilased_doc->createElement('juuksevarv', htmlspecialchars($_POST['juuksevarv_sisend'])));
 
                 $opilased_doc->save('opilased.xml');
-                echo "<p>Õpilane lisatud</p>";
+                echo "<p class='ok'> Õpilane lisatud</p>";
                 exit();
             }
             else {
-                echo "<p>Viga</p>";
+                echo "<p class='error'>Viga</p>";
             }
         }
         ?>
+    </div>
+    <div><a href="opilased.xml" target="_blank">XML file</a>
     </div>
     <script>
         function kontroll(field) {
