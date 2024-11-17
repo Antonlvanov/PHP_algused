@@ -8,12 +8,12 @@
         $otsing = strtolower(trim($otsing));
 
         foreach ($opilased_file->opilane_andmed as $opilane_andmed) {
-            $field_value = strtolower(trim($opilane_andmed->$kriterium));
+            $var = strtolower(trim($opilane_andmed->$kriterium));
 
-            if ($field_value === $otsing) {
+            if ($var === $otsing) {
                 $leitud[] = $opilane_andmed;
-            } elseif (strpos($field_value, " ") !== false) {
-                $nimi_split = explode(" ", $field_value);
+            } elseif (strpos($var, " ") !== false) {
+                $nimi_split = explode(" ", $var);
                 if (in_array($otsing, $nimi_split, true)) {
                     $leitud[] = $opilane_andmed;
                 }
@@ -43,33 +43,9 @@
             <input type="submit" value="OK">
         </form>
     </div>
-    <div id="search-form">
-        <form method="post" onsubmit="return kontroll('sugu')" action="?">
-            <label for="sugu">Sugu:</label>
-            <br>
-            <input type="text" id="sugu" name="sugu" placeholder="Otsi sugu järgi">
-            <input type="submit" value="OK">
-        </form>
-    </div>
     <div class="cards">
         <?php
-        // sugu jargi
-        if (!empty($_POST['sugu'])) {
-            $vastus = otsiOpilane($_POST['sugu'], 'sugu');
-            if (!empty($vastus)) {
-                echo "<div class='found'>";
-                foreach ($vastus as $opilane_andmed) {
-                    $taisnimi = $opilane_andmed->taisnimi;
-                    $veebileht = $opilane_andmed->veebileht;
-                    echo "<div class='card'><a href='$veebileht' target='_blank'>$taisnimi</a></div>";
-                }
-                echo "</div>";
-            } else {
-                echo "<p class='not-found'>Ei leidnud!</p>";
-            }
-        }
-
-        // leitud õpilased
+        // otsi õpilased
         if (!empty($_POST['otsing'])) {
             $vastus = otsiOpilane($_POST['otsing'], 'taisnimi');
             if (!empty($vastus)) {
@@ -121,7 +97,7 @@
         </form>
 
         <?php
-        // õpilane lisamine
+        // Õpilaste lisamine
         if(isset($_POST["lisa"])) {
             if (!empty($_POST['taisnimi_sisend'] && $_POST['veebileht_sisend'] && $_POST['sugu_sisend'] && $_POST['juuksevarv_sisend'])) {
                 $opilased_doc = new DOMDocument("1.0", "UTF-8");
