@@ -1,7 +1,7 @@
 <?php
     $opilased_file = simplexml_load_file("opilased.xml");
 
-    // otsing funktsioon
+    // õpilaste otsing funktsioon
     function otsiOpilane($otsing, $kriterium){
         global $opilased_file;
         $leitud = array();
@@ -32,8 +32,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="container">
-    <h2>TARpv23</h2>
+<div>
+    <h2>TARpv23 rühmaleht</h2>
     <h3>Õpilaste otsing</h3>
     <div id="search-form">
         <form method="post" onsubmit="return kontroll('otsing')" action="?">
@@ -43,9 +43,9 @@
             <input type="submit" value="OK">
         </form>
     </div>
-    <div class="cards">
+    <div class="opilased">
         <?php
-        // otsi õpilased
+        // näitab leitud õpilane
         if (!empty($_POST['otsing'])) {
             $vastus = otsiOpilane($_POST['otsing'], 'taisnimi');
             if (!empty($vastus)) {
@@ -53,80 +53,142 @@
                 foreach ($vastus as $opilane_andmed) {
                     $taisnimi = $opilane_andmed->taisnimi;
                     $veebileht = $opilane_andmed->veebileht;
-                    echo "<div class='card'><a href='$veebileht' target='_blank'>$taisnimi</a></div>";
+                    echo "<div class='opilane'><a href='$veebileht' target='_blank'>$taisnimi</a></div>";
                 }
                 echo "</div>";
             } else {
-                echo "<p class='error'>Ei leidnud!</p>";
+                echo "<p class='error'>Ei leitud!</p>";
             }
         }
 
-        // kõik õpilased
-        echo "<div class='all'>";
+        // näitab kõik õpilased
+        echo "<div class='koik'>";
         foreach ($opilased_file->opilane_andmed as $opilane_andmed) {
             $taisnimi = $opilane_andmed->taisnimi;
             $veebileht = $opilane_andmed->veebileht;
-            echo "<div class='card'><a href='$veebileht' target='_blank'>$taisnimi</a></div>";
+            $sugu = strtolower($opilane_andmed->sugu); // saada õpilase sugu
+            // Lisage klass sõltuvalt soost
+            $card_class = ($sugu === 'mees') ? 'male' : 'female';
+            echo "<div class='opilane $card_class'><a href='$veebileht' target='_blank'>$taisnimi</a></div>";
         }
         echo "</div>";
         ?>
     </div>
+
     <h3>Õpilaste lisamine</h3>
-    <div id="search-form">
+    <div id="lisa-opilane-form">
         <form action="" method="post" name="add_form">
-            <tr>
-                <td><label for="taisnimi_sisend">Õpilaste täisnimi:</label></td>
-                <td><input type="text" name="taisnimi_sisend" id="taisnimi_sisend"></td>
-            </tr>
-            <tr>
-                <td><label for="veebileht_sisend">Veebilehe link:</label></td>
-                <td><input type="text" name="veebileht_sisend" id="veebileht_sisend"></td>
-            </tr>
-            <tr>
-                <td><label for="sugu_sisend">Sugu:</label></td>
-                <td><input type="text" name="sugu_sisend" id="sugu_sisend"></td>
-            </tr>
-            <tr>
-                <td><label for="juuksevarv_sisend">Juuksevärv:</label></td>
-                <td><input type="text" name="juuksevarv_sisend" id="juuksevarv_sisend"></td>
-            </tr>
-            <tr>
-                <td><input type="submit" name="lisa" id="lisa" value="Lisa"></td>
-                <td></td>
-            </tr>
+            <div class="form-row">
+                <label for="taisnimi_sisend">Õpilaste täisnimi:</label>
+                <input type="text" name="taisnimi_sisend" id="taisnimi_sisend">
+                <label for="sugu_sisend">Sugu:</label>
+                <input type="text" name="sugu_sisend" id="sugu_sisend">
+            </div>
+            <div class="form-row">
+                <label for="veebileht_sisend">Veebilehe link:</label>
+                <input type="text" name="veebileht_sisend" id="veebileht_sisend">
+                <label for="juuksevarv_sisend">Juuksevärv:</label>
+                <input type="text" name="juuksevarv_sisend" id="juuksevarv_sisend">
+            </div>
+            <div class="form-row-button">
+                <input type="submit" name="lisa" id="lisa" value="Lisa">
+            </div>
         </form>
 
         <?php
-        // Õpilaste lisamine
+        // Kood uute õpilaste faili lisamiseks
         if(isset($_POST["lisa"])) {
-            if (!empty($_POST['taisnimi_sisend'] && $_POST['veebileht_sisend'] && $_POST['sugu_sisend'] && $_POST['juuksevarv_sisend'])) {
+            if (
+                !empty($_POST['taisnimi_sisend']) &&
+                !empty($_POST['veebileht_sisend']) &&
+                !empty($_POST['sugu_sisend']) &&
+                !empty($_POST['juuksevarv_sisend'])
+            ) {
                 $opilased_doc = new DOMDocument("1.0", "UTF-8");
                 $opilased_doc->preserveWhiteSpace = false;
                 $opilased_doc->load('opilased.xml');
                 $opilased_doc->formatOutput = true;
 
                 $opilased_root = $opilased_doc->documentElement;
-                $uus_opilane_andmed = $opilased_doc->createElement("opilane_andmed");
-                $opilased_root->appendChild($uus_opilane_andmed);
 
-                $uus_opilane_andmed->appendChild($opilased_doc->createElement('taisnimi', htmlspecialchars($_POST['taisnimi_sisend'])));
-                $uus_opilane_andmed->appendChild($opilased_doc->createElement('veebileht', htmlspecialchars($_POST['veebileht_sisend'])));
-                $uus_opilane_andmed->appendChild($opilased_doc->createElement('sugu', htmlspecialchars($_POST['sugu_sisend'])));
-                $uus_opilane_andmed->appendChild($opilased_doc->createElement('juuksevarv', htmlspecialchars($_POST['juuksevarv_sisend'])));
+                if (isNotDublicate($opilased_root)) {
+                    $uus_opilane_andmed = $opilased_doc->createElement("opilane_andmed");
+                    $opilased_root->appendChild($uus_opilane_andmed);
 
-                $opilased_doc->save('opilased.xml');
-                echo "<p class='ok'> Õpilane lisatud</p>";
-                exit();
+                    $uus_opilane_andmed->appendChild($opilased_doc->createElement('taisnimi', htmlspecialchars($_POST['taisnimi_sisend'])));
+                    $uus_opilane_andmed->appendChild($opilased_doc->createElement('veebileht', htmlspecialchars($_POST['veebileht_sisend'])));
+                    $uus_opilane_andmed->appendChild($opilased_doc->createElement('sugu', htmlspecialchars($_POST['sugu_sisend'])));
+                    $uus_opilane_andmed->appendChild($opilased_doc->createElement('juuksevarv', htmlspecialchars($_POST['juuksevarv_sisend'])));
+
+                    $opilased_doc->save('opilased.xml');
+                    echo "<p class='ok'>Õpilane lisatud</p>";
+                    exit();
+                }
+                else {
+                    echo "<p class='error'>Selline õpilane on juba olemas</p>";
+                }
             }
             else {
                 echo "<p class='error'>Viga</p>";
             }
         }
+        // andmete dubleerimine kontroll
+        function isNotDublicate($opilased_root) {
+            $uus_taisnimi = htmlspecialchars($_POST['taisnimi_sisend']);
+            $uus_veebileht = htmlspecialchars($_POST['veebileht_sisend']);
+            $uus_sugu = htmlspecialchars($_POST['sugu_sisend']);
+            $uus_juuksevarv = htmlspecialchars($_POST['juuksevarv_sisend']);
+            foreach ($opilased_root->getElementsByTagName('opilane_andmed') as $opilane_andmed) {
+                $leitud_taisnimi = $opilane_andmed->getElementsByTagName('taisnimi')->item(0)->nodeValue;
+                $leitud_veebileht = $opilane_andmed->getElementsByTagName('veebileht')->item(0)->nodeValue;
+                $leitud_sugu = $opilane_andmed->getElementsByTagName('sugu')->item(0)->nodeValue;
+                $leitud_juuksevarv = $opilane_andmed->getElementsByTagName('juuksevarv')->item(0)->nodeValue;
+
+                if (
+                    $leitud_taisnimi === $uus_taisnimi &&
+                    $leitud_veebileht === $uus_veebileht &&
+                    $leitud_sugu === $uus_sugu &&
+                    $leitud_juuksevarv === $uus_juuksevarv
+                ) {
+                    return false;
+                }
+            }
+            return true;
+        }
         ?>
     </div>
-    <div><a href="opilased.xml" target="_blank">XML file</a>
+    <h3>Kood</h3>
+    <div class="failid">
+        <form method="post">
+            <button type="submit" name="action" value="php">PHP</button>
+            <button type="submit" name="action" value="xml">XML</button>
+            <button type="submit" name="action" value="css">CSS</button>
+        </form>
     </div>
+    <?php
+    // koodi kuvamiseks faili valimine
+    $file = null;
+    if (isset($_POST['action'])) {
+        if ($_POST['action'] == 'php') {
+            $file = 'opilased.php';
+        } elseif ($_POST['action'] == 'xml') {
+            $file = 'opilased.xml';
+        } elseif ($_POST['action'] == 'css') {
+            $file = 'style.css';
+        }
+    }
+    ?>
+    <?php
+    // faili koodi kuvamine
+    if ($file) {
+        echo "<div id='code'>";
+        echo "<h3>$file</h3>";
+        highlight_file($file);
+        echo "</div>";
+    }
+    ?>
     <script>
+        // skript tühjade väljade kontrollimiseks
         function kontroll(field) {
             const name = document.getElementById(field).value;
             if (name == "") {

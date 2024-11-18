@@ -1,13 +1,12 @@
+/* põhilised stiilid */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-}
-
-#container {
+    font-family: 'Roboto', 'Arial', sans-serif;
+    background-color: #f4f7fb;
+    color: #333;
+    text-align: center;
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
 }
 
 h2 {
@@ -21,6 +20,7 @@ h3 {
     color: #666;
 }
 
+/* otsingu jaotiste stiilid */
 #search-form {
     margin-bottom: 20px;
 }
@@ -44,7 +44,9 @@ h3 {
     font-weight: bold;
 }
 
-.cards {
+/* stiilid õpilaste nimede koos linkidega kuvamiseks */
+
+.opilased {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -62,8 +64,7 @@ h3 {
     margin-bottom: 20px;
 }
 
-
-.all {
+.koik {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
@@ -71,7 +72,7 @@ h3 {
     margin-top: 20px;
 }
 
-.card {
+.opilane {
     width: 150px;
     height: 75px;
     background-color: #e0e0e0;
@@ -79,17 +80,95 @@ h3 {
     border-radius: 10px;
     display: flex;
     justify-content: center;
+    padding: 5px;
     align-items: center;
     font-size: 16px;
     font-weight: bold;
+    transition: transform 0.3s ease, background-color 0.3s ease; /* lisa sujuvaid üleminekuid */
 }
 
-.card a {
+.opilane a {
     text-decoration: none;
     color: #000;
 }
 
-.not-found {
+/* hõljumise käitumine */
+.opilane:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.opilane.male:hover {
+    background-color: #62aed7;
+}
+
+.opilane.female:hover {
+    background-color: #d795c5;
+}
+
+/* õpilaste lisamine jaotis */
+#lisa-opilane-form {
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-row label {
+    width: 50%;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.form-row input {
+    width: 55%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-row-button input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* failid / kood */
+.failid {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#code {
+    text-align: left;
+    margin: 20px auto;
+    max-width: 80%;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 15px;
+    overflow-x: auto;
+}
+
+/* sõnumeid */
+.error {
     color: red;
+    font-weight: bold;
+}
+.ok {
+    color: green;
     font-weight: bold;
 }
