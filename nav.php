@@ -18,5 +18,8 @@
         <li>
             <a href="opilasedXML/opilased.php" target="_blank">Õpilased XML</a>
         </li>
+        <li>
+            <a href="content/andmebaas/matkaLeht.php" target="_blank">Andmebaas</a>
+        </li>
     </ul>
 </nav>
