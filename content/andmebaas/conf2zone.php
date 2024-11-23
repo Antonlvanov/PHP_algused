@@ -1,5 +1,5 @@
 <?php
-//zone kasutaja jaoks conf fail
+//zone kasutaja jaoks conf fail s
 $serverinimi="d132031.mysql.zonevs.eu";
 $kasutaja="d132031_anton";
 $parool="Madiets420";
