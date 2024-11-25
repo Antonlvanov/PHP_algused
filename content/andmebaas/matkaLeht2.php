@@ -2,9 +2,6 @@
 require ('conf.php');
 //require ('conf2zone.php');
 global $yhendus;
-$paring=$yhendus->prepare("SELECT id, nimi, telefon, pilt, synniaeg FROM osalejad");
-$paring->bind_result($id, $nimi, $telefon, $pilt, $synniaeg);
-$paring->execute();
 //kustutamine
 if(isset($_REQUEST["kustuta"])){
     $kask=$yhendus->prepare("DELETE FROM osalejad WHERE id=?");
@@ -13,6 +10,7 @@ if(isset($_REQUEST["kustuta"])){
 }
 //tabeli andmete lisamine
 if(isset($_REQUEST["nimi"]) && !empty($_REQUEST["nimi"])){
+    global $yhendus;
     $paring=$yhendus->prepare("INSERT INTO osalejad(nimi, telefon, pilt, synniaeg)
 VALUES (?, ?, ?, ?)");
     //i- integer, s- string
@@ -47,6 +45,9 @@ function kalk($birthDate) {
 <h1>Matkal osalejad</h1>
 
 <?php
+$paring=$yhendus->prepare("SELECT id, nimi, telefon, pilt, synniaeg FROM osalejad");
+$paring->bind_result($id, $nimi, $telefon, $pilt, $synniaeg);
+$paring->execute();
 echo "<table border='1' class='image-table'>";
 echo "<tr>";
 $i = 0;
@@ -97,8 +98,9 @@ if(isset($_REQUEST["osaleja_id"])){
 </table>
 
 <?php
-echo "<a href='?lisamine=jah'>Lisa..</a>"
+echo "<a href='?lisamine=jah' class='lisa'>Lisa...</a>";
 ?>
+
 
 <?php
 // lisamisvorm, mis avatakse kui vajatatud lisa...
@@ -121,7 +123,7 @@ if (isset($_REQUEST["lisamine"])){
         </tr>
         <tr>
             <td><label for="synniaeg">Synniaeg:</label></td>
-            <td><input type="date" id="sünniaeg" name="synniaeg" required></td>
+            <td><input type="date" id="synniaeg" name="synniaeg" required></td>
         </tr>
         <tr>
             <td colspan="2">
