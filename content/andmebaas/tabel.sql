@@ -8,6 +8,7 @@ CREATE TABLE loomad(
 INSERT INTO loomad(loomanimi, omanik, varv)
 VALUES ('kass Vassily', 'David', 'red');
 
+
 SELECT * FROM loomad;
 
 Create table osalejad(
