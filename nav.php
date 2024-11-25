@@ -21,5 +21,8 @@
         <li>
             <a href="content/andmebaas/matkaLeht.php" target="_blank">Andmebaas</a>
         </li>
+        <li>
+            <a href="content/andmebaas/matkaLeht2.php" target="_blank">Andmebaas Matkajad 25.11</a>
+        </li>
     </ul>
 </nav>
