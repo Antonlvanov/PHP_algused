@@ -12,7 +12,6 @@ VALUES (?, ?, ?)");
     $paring->bind_param("sss", $_REQUEST["nimetus"], $_REQUEST["sisu"], $aeg);
     $paring->execute();
 }
-
 ?>
 
 <!doctype html>

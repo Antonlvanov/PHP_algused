@@ -2,7 +2,7 @@
 //zone kasutaja jaoks conf fail
 $serverinimi="d132031.mysql.zonevs.eu";
 $kasutaja="d132031_anton";
-$parool="Madiets420";
+$parool="**********";
 $andmebaas="d132031_anton";
 
 
