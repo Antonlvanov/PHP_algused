@@ -52,7 +52,7 @@ echo "<table border='1' class='image-table'>";
 echo "<tr>";
 $i = 0;
 while($paring->fetch()){
-    echo "<td class='image-item'>
+    echo "<td>
             <a href='?osaleja_id=$id'><img src='$pilt' alt='pilt'></a>
           </td>";
     $i++;
@@ -122,7 +122,7 @@ if (isset($_REQUEST["lisamine"])){
             <td><textarea id="pilt" name="pilt" rows="3" cols="30" required></textarea></td>
         </tr>
         <tr>
-            <td><label for="synniaeg">Synniaeg:</label></td>
+            <td><label for="synniaeg">Sünniaeg:</label></td>
             <td><input type="date" id="synniaeg" name="synniaeg" required></td>
         </tr>
         <tr>

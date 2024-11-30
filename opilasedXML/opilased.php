@@ -68,8 +68,8 @@
             $veebileht = $opilane_andmed->veebileht;
             $sugu = strtolower($opilane_andmed->sugu); // saada õpilase sugu
             // Lisage klass sõltuvalt soost
-            $card_class = ($sugu === 'mees') ? 'male' : 'female';
-            echo "<div class='opilane $card_class'><a href='$veebileht' target='_blank'>$taisnimi</a></div>";
+            $_sugu = ($sugu === 'mees') ? 'male' : 'female';
+            echo "<div class='opilane $_sugu'><a href='$veebileht' target='_blank'>$taisnimi</a></div>";
         }
         echo "</div>";
         ?>
