@@ -1,5 +1,7 @@
 <div class="nav2">
-    <p>Anton I &copy;</p>
+    <?php
+    echo "<p>Anton I &copy; " .date('Y')."</p>";
+    ?>
     <p><a href="">Wordpress</a></p>
 </div>
 </body>

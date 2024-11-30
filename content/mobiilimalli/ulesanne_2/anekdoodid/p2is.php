@@ -19,4 +19,3 @@ maximum-scale=1.0;">
         </ul>
     </div>
 </div>
-<div class="clear"></div

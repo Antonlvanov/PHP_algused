@@ -1,0 +1,98 @@
+body {
+    text-align: center;
+    background: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* menuu */
+.nav {
+    font-size: 20px;
+    background: grey;
+    padding: 10px;
+}
+.nav ul {
+    padding: 0;
+    margin: 0;
+}
+.nav ul li {
+    display: inline;
+}
+.nav ul li a {
+    display: inline-block;
+    color: #f2f2f2;
+    padding: 10px;
+    text-decoration: none;
+}
+.nav ul li a:hover {
+    color: #565656;
+}
+
+/* anekdoot */
+.anekdot-div {
+    background-color: #f9f9f9;
+    border: 2px solid #cccccc;
+    border-radius: 10px;
+    margin: 20px;
+    text-align: center;
+}
+.anekdot-div h2 {
+    color: #555555;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+.anekdot-div p {
+    font-size: 18px;
+    line-height: 1.3;
+    color: #333333;
+}
+
+/* nuppid */
+.lisa, form input[type="submit"]{
+    font-size: 16px;
+    display: inline-block;
+    width: auto;
+    padding: 10px 20px;
+    margin: 20px;
+    background-color: #434443;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* lisamine */
+table {
+    width: 40%;
+    margin: auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+th, td {
+    padding: 10px;
+}
+
+/* jalus */
+.nav2 {
+    font-size: 14px;
+    background: grey;
+    margin: 0 5px;
+    padding: 5px 0;
+}
+.nav2 p {
+    text-align: center;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+.nav2 p a {
+    display: inline-block;
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+}
+.nav2 p a:hover {
+    color: blue;
+}
