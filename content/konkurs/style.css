@@ -1,0 +1,74 @@
+body {
+    text-align: center;
+    background: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* menuu */
+.nav {
+    font-size: 20px;
+    background: grey;
+    padding: 10px;
+}
+.nav ul {
+    padding: 0;
+    margin: 0;
+}
+.nav ul li {
+    display: inline;
+}
+.nav ul li a {
+    display: inline-block;
+    color: #f2f2f2;
+    padding: 10px;
+    text-decoration: none;
+}
+.nav ul li a:hover {
+    color: #565656;
+}
+
+/* nuppid */
+#lisa-konkurs-vorm input[type="submit"], table td a{
+    font-size: 16px;
+    display: inline-block;
+    width: auto;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #434443;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* lisamine */
+#lisa-konkurs-vorm {
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border: none;
+    border-radius: 5px;
+}
+
+table th {
+    background-color: grey;
+}
+
+table td, th {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+
