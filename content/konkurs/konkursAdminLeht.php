@@ -2,6 +2,21 @@
 require ('conf.php');
 global $yhendus;
 
+if(isset($_REQUEST["avamine_id"])) {
+    $paring = $yhendus->prepare("SELECT avalik FROM konkurss WHERE id = ?");
+    $paring->bind_param("i",$_REQUEST["avamine_id"]);
+    $paring->execute();
+    $paring->bind_result($avalik);
+    $paring->fetch();
+    $paring->free_result();
+
+    $new_avalik = ($avalik == 1) ? 0 : 1;
+
+    $paring_update = $yhendus->prepare("UPDATE konkurss SET avalik = ? WHERE id = ?");
+    $paring_update->bind_param('ii', $new_avalik, $_REQUEST["avamine_id"]);
+    $paring_update->execute();
+}
+
 if(isset($_REQUEST["nullidaPunktid_id"])){
     $kask=$yhendus->prepare("update konkurss set punktid=0
 WHERE id=?");
@@ -55,12 +70,13 @@ maximum-scale=1.0;">
         <ul>
             <li><a href="konkursAdminLeht.php">Admin</a></li>
             <li><a href="konkursUserLeht.php">Kasutaja</a></li>
+            <li><a href="konkurss1kaupa.php">Info</a></li>
         </ul>
     </nav>
     <form action="" id="lisa-konkurs-vorm">
         <label for="uusKonkurss">Lisa konkurssi nimi</label>
         <input type="text" name="uusKonkurss" id="uusKonkurss">
-        <input type="submit" value="OK">
+        <input type="submit" value="Lisa">
     </form>
     <table border="1">
         <tr>
@@ -72,8 +88,8 @@ maximum-scale=1.0;">
         </tr>
         <?php
         global $yhendus;
-        $paring=$yhendus->prepare("SELECT id, konkursiNimi, lisamisaeg, punktid, kommentaarid FROM konkurss");
-        $paring->bind_result($id, $konkursiNimi, $lisamisaeg, $punktid, $kommentaarid);
+        $paring=$yhendus->prepare("SELECT id, konkursiNimi, lisamisaeg, punktid, kommentaarid, avalik FROM konkurss");
+        $paring->bind_result($id, $konkursiNimi, $lisamisaeg, $punktid, $kommentaarid, $avalik);
         $paring->execute();
         while($paring->fetch()) {
             echo "<tr>";
@@ -93,6 +109,8 @@ maximum-scale=1.0;">
             <?php
             echo "<td><a href='?nullidaPunktid_id=$id'>Nullida punktid</a></td>";
             echo "<td><a href='?kustutaKonkurss_id=$id'>Kustuta</a></td>";
+            if ($avalik == 1) { echo "<td><a href='?avamine_id=$id'>Peida</a></td>"; }
+            else { echo "<td><a href='?avamine_id=$id'>Ava</a></td>"; }
             echo "</tr>";
         }
         ?>

@@ -27,6 +27,39 @@ body {
     color: #565656;
 }
 
+/* konkursid menu*/
+
+.konkursid {
+    font-size: 15px;
+    background: lightgray;
+    padding: 10px;
+}
+.konkursid ul {
+    padding: 0;
+    margin: 0;
+}
+.konkursid ul li {
+    display: inline;
+}
+.konkursid ul li a {
+    display: inline-block;
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+}
+.konkursid ul li a:hover {
+    color: #565656;
+}
+
+.konkurs-div {
+    border: 2px solid #000;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+
 /* nuppid */
 #lisa-konkurs-vorm input[type="submit"], table td a{
     font-size: 16px;
@@ -71,4 +104,27 @@ table td, th {
     box-sizing: border-box;
 }
 
+
+/* jalus */
+.nav2 {
+    font-size: 14px;
+    background: grey;
+    margin: 0 5px;
+    padding: 5px 0;
+}
+.nav2 p {
+    text-align: center;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+.nav2 p a {
+    display: inline-block;
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+}
+.nav2 p a:hover {
+    color: blue;
+}
 

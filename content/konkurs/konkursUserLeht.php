@@ -52,12 +52,13 @@ maximum-scale=1.0;">
         <ul>
             <li><a href="konkursAdminLeht.php">Admin</a></li>
             <li><a href="konkursUserLeht.php">Kasutaja</a></li>
+            <li><a href="konkurss1kaupa.php">Info</a></li>
         </ul>
     </nav>
     <form action="" id="lisa-konkurs-vorm">
         <label for="uusKonkurss">Lisa konkurssi nimi</label>
         <input type="text" name="uusKonkurss" id="uusKonkurss">
-        <input type="submit" value="OK">
+        <input type="submit" value="Lisa">
     </form>
     <table border="1">
         <tr>
@@ -69,29 +70,31 @@ maximum-scale=1.0;">
         </tr>
         <?php
         global $yhendus;
-        $paring=$yhendus->prepare("SELECT id, konkursiNimi, lisamisaeg, punktid, kommentaarid FROM konkurss");
-        $paring->bind_result($id, $konkursiNimi, $lisamisaeg, $punktid, $kommentaarid);
+        $paring=$yhendus->prepare("SELECT id, konkursiNimi, lisamisaeg, punktid, kommentaarid, avalik FROM konkurss");
+        $paring->bind_result($id, $konkursiNimi, $lisamisaeg, $punktid, $kommentaarid, $avalik);
         $paring->execute();
         while($paring->fetch()) {
-            echo "<tr>";
-            $konkursiNimi = htmlspecialchars($konkursiNimi);
-            $kommentaarid = nl2br(htmlspecialchars($kommentaarid));
-            echo "<td>$konkursiNimi</td>";
-            echo "<td>$lisamisaeg</td>";
-            echo "<td>$punktid</td>";
-            echo "<td>$kommentaarid</td>";
-            ?>
-            <td>
-                <form action="?">
-                    <input type="hidden" name="uusKomment" value="<?=$id?>">
-                    <input type="text" name="komment" id="komment">
-                    <input type="submit" value="Lisa kommentaar">
-                </form>
-            </td>
-            <?php
-            echo "<td><a href='?heakonkurs_id=$id'>Lisa +1 punkt</a></td>";
-            echo "<td><a href='?halbkonkurs_id=$id'>-1 punkt</a></td>";
-            echo "</tr>";
+            if ($avalik==1) {
+                echo "<tr>";
+                $konkursiNimi = htmlspecialchars($konkursiNimi);
+                $kommentaarid = nl2br(htmlspecialchars($kommentaarid));
+                echo "<td><a href='konkurss1kaupa.php?konkurs_valik=$id'>$konkursiNimi</a></td>";
+                echo "<td>$lisamisaeg</td>";
+                echo "<td>$punktid</td>";
+                echo "<td>$kommentaarid</td>";
+                ?>
+                <td>
+                    <form action="?">
+                        <input type="hidden" name="uusKomment" value="<?=$id?>">
+                        <input type="text" name="komment" id="komment">
+                        <input type="submit" value="Lisa kommentaar">
+                    </form>
+                </td>
+                <?php
+                echo "<td><a href='?heakonkurs_id=$id'>Lisa +1 punkt</a></td>";
+                echo "<td><a href='?halbkonkurs_id=$id'>-1 punkt</a></td>";
+                echo "</tr>";
+            }
         }
         ?>
     </table>
