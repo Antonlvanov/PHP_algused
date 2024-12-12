@@ -68,7 +68,6 @@ maximum-scale=1.0;">
                     <td><?=$kaup->hind ?></td>
                     <td>
                         <?php if(isSet($_REQUEST["muutmisid"]) && intval($_REQUEST["muutmisid"]) == $kaup->id): ?>
-                            <!-- Form for editing in the same column -->
                             <input type="hidden" name="muudetudid" value="<?=$kaup->id ?>" />
                             <input type="text" name="nimetus" value="<?=$kaup->nimetus ?>" />
                             <?php echo looRippMenyy("SELECT id, grupinimi FROM kaubagrupid", "kaubagrupi_id", $kaup->kaubagrupi_id); ?>
@@ -77,7 +76,6 @@ maximum-scale=1.0;">
                             <input type="submit" name="muutmine" value="Muuda" />
                             <input type="submit" name="katkestus" value="Katkesta" />
                         <?php else: ?>
-                            <!-- Links for delete and edit -->
                             <a href="index.php?kustutusid=<?=$kaup->id ?>" onclick="return confirm('Kas ikka soovid kustutada?')">Kustuta</a>
                             <a href="index.php?muutmisid=<?=$kaup->id ?>">Muuda</a>
                         <?php endif ?>
