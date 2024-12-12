@@ -1,23 +1,14 @@
 body {
     text-align: center;
-    background: #ffffff;
+    background: #fcffee;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-.kauba-lisamine {
-    border: 2px solid #000;
-    padding: 10px;
-    margin: 20px 0;
-    border-radius: 8px;
-    background-color: #f9f9f9;
 }
 
 dt {
     margin: 10px;
 }
-/* nuppid */
 
-#lisa-konkurs-vorm input[type="submit"], table td a{
+input[type="submit"], table td a{
     font-size: 16px;
     display: inline-block;
     width: auto;
@@ -31,27 +22,16 @@ dt {
     cursor: pointer;
 }
 
-/* lisamine */
-
-#lisa-konkurs-vorm {
-    width: 50%;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 table {
     width: 80%;
     margin: 20px auto;
     border: none;
     border-radius: 5px;
+    background-color: #f4f4f9;
 }
 
 table th {
-    background-color: grey;
+    background-color: #d3d3d3;
 }
 
 table td, th {
@@ -61,6 +41,26 @@ table td, th {
     box-sizing: border-box;
 }
 
-/* form */
+table tr th a {
+    color: #007bff;
+}
+.lisa {
+    width: 30%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+input[type="text"], select {
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
 
 

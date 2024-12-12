@@ -1,38 +1,7 @@
 <?php
-require ('conf/conf2zone.php');
+//require ('conf/conf2zone.php');
+require ('conf/conf.php');
 global $yhendus;
-
-$sql_kaubagrupid = "CREATE TABLE IF NOT EXISTS kaubagrupid ( 
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-    grupinimi VARCHAR(255) 
-)";
-
-// Выполнение запроса на создание таблицы kaubagrupid
-if ($yhendus->query($sql_kaubagrupid) === TRUE) {
-    echo "Table kaubagrupid created successfully.\n";
-} else {
-    echo "Error creating table kaubagrupid: " . $yhendus->error . "\n";
-}
-
-// SQL запрос для создания таблицы kaubad
-$sql_kaubad = "CREATE TABLE IF NOT EXISTS kaubad ( 
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-    nimetus VARCHAR(255), 
-    kaubagrupi_id INT, 
-    hind DECIMAL(10, 2),
-    FOREIGN KEY (kaubagrupi_id) REFERENCES kaubagrupid(id)
-)";
-
-// Выполнение запроса на создание таблицы kaubad
-if ($yhendus->query($sql_kaubad) === TRUE) {
-    echo "Table kaubad created successfully.\n";
-} else {
-    echo "Error creating table kaubad: " . $yhendus->error . "\n";
-}
-
-// Закрытие соединения с базой данных
-$yhendus->close();
-?>
 
 function kysiKaupadeAndmed($sorttulp="nimetus", $otsisona=""){
     global $yhendus;
@@ -93,18 +62,36 @@ function looRippMenyy($sqllause, $valikunimi, $valitudid=""){
 
 function lisaGrupp($grupinimi){
     global $yhendus;
-    $kask=$yhendus->prepare("INSERT INTO kaubagrupid (grupinimi)  VALUES (?)");
+    if (trim($grupinimi) == '') {
+        return false;
+    }
+    $kask = $yhendus->prepare("SELECT COUNT(*) FROM kaubagrupid WHERE grupinimi = ?");
     $kask->bind_param("s", $grupinimi);
     $kask->execute();
+    $kask->bind_result($grupp);
+    $kask->fetch();
+    $kask->close();
+    if ($grupp > 0) {
+        return false;
+    }
+    $kask = $yhendus->prepare("INSERT INTO kaubagrupid (grupinimi) VALUES (?)");
+    $kask->bind_param("s", $grupinimi);
+    $kask->execute();
+    $kask->close();
+    return true;
 }
 
 function lisaKaup($nimetus, $kaubagrupi_id, $hind){
     global $yhendus;
+    if (trim($nimetus) == '' || !is_numeric($kaubagrupi_id) || $kaubagrupi_id <= 0 || !is_numeric($hind) || $hind <= 0) {
+        return false;
+    }
     $kask=$yhendus->prepare("INSERT INTO  
  kaubad (nimetus, kaubagrupi_id, hind) 
  VALUES (?, ?, ?)");
     $kask->bind_param("sid", $nimetus, $kaubagrupi_id, $hind);
     $kask->execute();
+    return true;
 }
 
 function kustutaKaup($kauba_id){
