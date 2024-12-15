@@ -1,17 +1,17 @@
 <?php
 if( isset($_POST["submit"]) )
 {
-    $fullname       = $_POST["fullname"];
+    $name       = $_POST["name"];
     $email          = $_POST["email"];
-    $username       = $_POST["username"];
-    $password       = $_POST["password"];
-    $passwordRepeat = $_POST["passwordRepeat"];
+    $username       = $_POST["uid"];
+    $pwd       = $_POST["pwd"];
+    $pwdRepeat = $_POST["pwdrepeat"];
 
     require_once 'functions.inc.php';
     require_once '../connection/conf.php';
     global $yhendus;
 
-    if( emptyInputSignup($fullname, $email, $username, $password, $passwordRepeat) !== false )
+    if( emptyInputSignup($name, $email, $username, $pwd, $pwdRepeat) !== false )
     {
         header("location: ../signup.php?error=emptyinput");
         exit();
@@ -26,7 +26,7 @@ if( isset($_POST["submit"]) )
         header("location: ../signup.php?error=invalidemail");
         exit();
     }
-    if( passwordsMatch($password, $passwordRepeat) !== false )
+    if( passwordsMatch($pwd, $pwdRepeat) !== false )
     {
         header("location: ../signup.php?error=passwordmismatch");
         exit();
@@ -41,7 +41,7 @@ if( isset($_POST["submit"]) )
         header("location: ../signup.php?error=emailregistered");
         exit();
     }
-    createUser($yhendus, $fullname, $email, $username, $password);
+    createUser($yhendus, $name, $email, $username, $pwd);
 }
 else {
     header("location: ../signup.php");

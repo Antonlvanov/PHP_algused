@@ -1,18 +1,9 @@
 <?php
-function emptyInputSignup($fullname, $email, $username, $password, $passwordRepeat)
+// signup
+function emptyInputSignup($name, $email, $username, $pwd, $pwdRepeat)
 {
     $result = false;
-    if( empty($fullname) || empty($email) || empty($username) || empty($password) || empty($passwordRepeat) )
-    {
-        $result = true;
-    }
-    return $result;
-}
-
-function emptyInputLogin($username, $password)
-{
-    $result = false;
-    if( empty($username) || empty($password) )
+    if (empty(trim($name)) || empty(trim($email)) || empty(trim($username)) || empty(trim($pwd)) || empty(trim($pwdRepeat)))
     {
         $result = true;
     }
@@ -39,43 +30,14 @@ function invalidEmail($email)
     return $result;
 }
 
-function passwordsMatch($password, $passwordRepeat)
+function passwordsMatch($pwd, $pwdRepeat)
 {
     $result = false;
-    if( $password !== $passwordRepeat )
+    if( $pwd !== $pwdRepeat )
     {
         $result = true;
     }
     return $result;
-}
-
-function usernameExists($conn, $username)
-{
-    $sql = "SELECT * FROM users WHERE usersUsername = ?;";
-
-    $stmt = mysqli_stmt_init($conn);
-
-    if( !mysqli_stmt_prepare($stmt, $sql) )
-    {
-        header("location: ../signup.php?error=stmtfailed");
-        exit();
-    }
-
-    mysqli_stmt_bind_param($stmt, "s", $username);
-    mysqli_stmt_execute($stmt);
-
-    $resultData = mysqli_stmt_get_result($stmt);
-
-    mysqli_stmt_close($stmt);
-
-    if( $row = mysqli_fetch_assoc($resultData) )
-    {
-        return $row;
-    }
-    else
-    {
-        return false;
-    }
 }
 
 function emailExists($conn, $email)
@@ -107,9 +69,9 @@ function emailExists($conn, $email)
     }
 }
 
-function createUser($conn, $fullname, $email, $username, $password)
+function createUser($conn, $name, $email, $username, $pwd)
 {
-    $sql = "INSERT INTO users (usersUsername, usersEmail, usersPassword, usersRealname) VALUES (?, ?, ?, ?);";
+    $sql = "INSERT INTO users (usersName, usersEmail, usersUid, usersPwd) VALUES (?, ?, ?, ?);";
 
     $stmt = mysqli_stmt_init($conn);
 
@@ -119,9 +81,9 @@ function createUser($conn, $fullname, $email, $username, $password)
         exit();
     }
 
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $hashedPassword = password_hash($pwd, PASSWORD_DEFAULT);
 
-    mysqli_stmt_bind_param($stmt, "ssss", $username, $email, $hashedPassword, $fullname);
+    mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $username, $hashedPassword);
 
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
@@ -129,7 +91,47 @@ function createUser($conn, $fullname, $email, $username, $password)
     exit();
 }
 
-function loginUser($conn, $username, $password)
+// signup / login
+function usernameExists($conn, $username)
+{
+    $sql = "SELECT * FROM users WHERE usersUid = ?;";
+
+    $stmt = mysqli_stmt_init($conn);
+
+    if( !mysqli_stmt_prepare($stmt, $sql) )
+    {
+        header("location: ../signup.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    mysqli_stmt_close($stmt);
+
+    if( $row = mysqli_fetch_assoc($resultData) )
+    {
+        return $row;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+// login
+function emptyInputLogin($username, $pwd)
+{
+    $result = false;
+    if( empty($username) || empty($pwd) )
+    {
+        $result = true;
+    }
+    return $result;
+}
+function loginUser($conn, $username, $pwd)
 {
     $usernameExists = usernameExists($conn, $username);
 
@@ -139,8 +141,8 @@ function loginUser($conn, $username, $password)
         exit();
     }
 
-    $hashedPassword = $usernameExists["usersPassword"];
-    $checkPassword = password_verify($password, $hashedPassword);
+    $hashedPassword = $usernameExists["usersPwd"];
+    $checkPassword = password_verify($pwd, $hashedPassword);
 
     if ($checkPassword === false )
     {
@@ -151,7 +153,7 @@ function loginUser($conn, $username, $password)
     {
         session_start();
         $_SESSION["userid"] = $usernameExists["usersId"];
-        $_SESSION["username"] = $usernameExists["usersUsername"];
+        $_SESSION["useruid"] = $usernameExists["usersUid"];
         header("location: ../konkursAdminLeht.php");
         exit();
     }

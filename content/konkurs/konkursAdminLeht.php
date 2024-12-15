@@ -5,25 +5,10 @@ include 'header.php';
 require('connection/conf.php');
 require ('funktsioonid.php');
 global $yhendus;
-
-$sql = "CREATE TABLE users (
-    usersId INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    usersUsername VARCHAR(128) NOT NULL,
-    usersEmail VARCHAR(128) NOT NULL,
-    usersPassword VARCHAR(128) NOT NULL,
-    usersRealname VARCHAR(128) NOT NULL
-)";
-
-// Выполнение запроса
-if ($yhendus->query($sql) === TRUE) {
-    echo "Table 'users' created successfully";
-} else {
-    echo "Error creating table: " . $yhendus->error;
-}
 ?>
 
 <form action="" id="lisa-konkurs-vorm">
-    <label for="uusKonkurss">Lisa konkurss</label>
+    <label for="uusKonkurss">Lisa konkurs</label>
     <input type="text" name="uusKonkurss" id="uusKonkurss">
     <input type="submit" value="Lisa">
 </form>

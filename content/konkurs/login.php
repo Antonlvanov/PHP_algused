@@ -5,8 +5,8 @@ include 'header.php';
     <section class="signup-form">
         <h2>Sisse loogimine</h2>
         <form action="user_handler/login.inc.php" method="post">
-            <p><input type="text" name="username" placeholder="Kasutaja nimi"></p>
-            <p><input type="password" name="password" placeholder="Parool"></p>
+            <p><input type="text" name="uid" placeholder="Kasutaja nimi"></p>
+            <p><input type="password" name="pwd" placeholder="Parool"></p>
             <p><button type="submit" name="submit">Loogi sisse</button></p>
             <?php
             if( isset($_GET["error"]) )

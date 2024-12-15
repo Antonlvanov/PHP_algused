@@ -9,7 +9,7 @@ global $yhendus;
 ?>
 
 <form action="" id="lisa-konkurs-vorm">
-    <label for="uusKonkurss">Lisa konkurss</label>
+    <label for="uusKonkurss">Lisa konkurs</label>
     <input type="text" name="uusKonkurss" id="uusKonkurss">
     <input type="submit" value="Lisa">
 </form>
@@ -43,7 +43,7 @@ global $yhendus;
                 </form>
             </td>
             <?php
-            echo "<td><a href='?heakonkurs_id=$id'>Lisa +1 punkt</a></td>";
+            echo "<td><a href='?heakonkurs_id=$id'>+1 punkt</a></td>";
             echo "<td><a href='?halbkonkurs_id=$id'>-1 punkt</a></td>";
             echo "</tr>";
         }

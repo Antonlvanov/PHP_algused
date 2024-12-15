@@ -6,11 +6,11 @@ include 'header.php';
     <div>
         <h2>Registreerimine</h2>
         <form action="user_handler/signup.inc.php" method="post">
-            <p><input type="text" name="fullname" placeholder="Nimi"></p>
+            <p><input type="text" name="name" placeholder="Nimi"></p>
             <p><input type="text" name="email" placeholder="E-Post"></p>
-            <p><input type="text" name="username" placeholder="Kasutaja nimi"></p>
-            <p><input type="password" name="password" placeholder="Parool"></p>
-            <p><input type="password" name="passwordRepeat" placeholder="Korda parool"></p>
+            <p><input type="text" name="uid" placeholder="Kasutaja nimi"></p>
+            <p><input type="password" name="pwd" placeholder="Parool"></p>
+            <p><input type="password" name="pwdrepeat" placeholder="Korda parool"></p>
             <p><button type="submit" name="submit">Registreeri</button></p>
             <?php
             if (isset($_GET["error"])) {

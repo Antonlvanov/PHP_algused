@@ -17,14 +17,14 @@ maximum-scale=1.0;">
 <nav class="nav">
     <ul>
         <?php
-        if (isset($_SESSION['username'])) {
+        if (isset($_SESSION['useruid'])) {
             echo '<li><a href="konkursAdminLeht.php">Admin</a></li>';
         }
         ?>
         <li><a href="konkursUserLeht.php">Kasutaja</a></li>
         <li><a href="konkurss1kaupa.php">Konkursid</a></li>
         <?php
-        if (!isset($_SESSION['username'])) {
+        if (!isset($_SESSION['useruid'])) {
             echo '<li><a href="login.php">Sisse loogi</a></li>';
             echo '<li><a href="signup.php">Registreeri</a></li>';
         }

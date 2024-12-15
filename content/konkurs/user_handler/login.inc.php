@@ -1,20 +1,20 @@
 <?php
 if (isset($_POST["submit"]))
 {
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    $username = $_POST["uid"];
+    $pwd = $_POST["pwd"];
 
     require_once 'functions.inc.php';
     require_once '../connection/conf.php';
     global $yhendus;
 
-    if(emptyInputLogin($username, $password) )
+    if(emptyInputLogin($username, $pwd) )
     {
         header("location: ../login.php?error=emptyinput");
         exit();
     }
 
-    loginUser($yhendus, $username, $password);
+    loginUser($yhendus, $username, $pwd);
 }
 else
 {

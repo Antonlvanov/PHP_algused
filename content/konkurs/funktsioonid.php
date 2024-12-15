@@ -2,6 +2,7 @@
 
 //require ('connection/conf2zone.php');
 require('connection/conf.php');
+
 global $yhendus;
 
 if(isset($_REQUEST["uusKonkurss"])){
