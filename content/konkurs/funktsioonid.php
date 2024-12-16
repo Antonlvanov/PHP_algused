@@ -12,12 +12,15 @@ if(isset($_REQUEST["uusKonkurss"])){
     header("Location:$_SERVER[PHP_SELF]");
 }
 if (isset($_REQUEST["uusKomment"])) {
-    $kommentLisa = "\n" . htmlspecialchars($_REQUEST["komment"]);
-    $konkursiId = $_REQUEST["uusKomment"];
-    $paring = $yhendus->prepare("UPDATE konkurss SET kommentaarid = CONCAT(kommentaarid, ?) WHERE id = ?");
-    $paring->bind_param("si", $kommentLisa, $konkursiId);
-    $paring->execute();
-    header("Location:$_SERVER[PHP_SELF]");
+    $komment = trim($_REQUEST["komment"]);
+    if (!empty($komment)) {
+        $kommentLisa = "\n" . htmlspecialchars($komment);
+        $konkursiId = $_REQUEST["uusKomment"];
+        $paring = $yhendus->prepare("UPDATE konkurss SET kommentaarid = CONCAT(kommentaarid, ?) WHERE id = ?");
+        $paring->bind_param("si", $kommentLisa, $konkursiId);
+        $paring->execute();
+    }
+    header("Location: $_SERVER[PHP_SELF]");
 }
 
 if(isset($_REQUEST["heakonkurs_id"])){

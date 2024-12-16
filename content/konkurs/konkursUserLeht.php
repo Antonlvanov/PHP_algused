@@ -6,6 +6,31 @@ session_start();
 require('connection/conf.php');
 require ('funktsioonid.php');
 global $yhendus;
+
+$sql = "drop table users";
+
+// Выполнение запроса
+if ($yhendus->query($sql) === TRUE) {
+    echo "Таблица 'users' успешно deleted.";
+} else {
+    echo "Ошибка при создании таблицы: " . $yhendus->error;
+}
+
+$sql = "CREATE TABLE users (
+    usersId INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    usersName VARCHAR(128) NOT NULL,
+    usersEmail VARCHAR(128) NOT NULL,
+    usersUid VARCHAR(128) NOT NULL,
+    usersPwd VARCHAR(128) NOT NULL,
+    rolli int NOT NULL DEFAULT 0
+)";
+
+// Выполнение запроса
+if ($yhendus->query($sql) === TRUE) {
+    echo "Таблица 'users' успешно создана.";
+} else {
+    echo "Ошибка при создании таблицы: " . $yhendus->error;
+}
 ?>
 <!doctype html>
 <html lang="et">
