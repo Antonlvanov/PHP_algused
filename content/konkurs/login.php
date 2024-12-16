@@ -7,7 +7,7 @@ include 'header.php';
         <form action="user_handler/login.inc.php" method="post">
             <p><input type="text" name="uid" placeholder="Kasutaja nimi"></p>
             <p><input type="password" name="pwd" placeholder="Parool"></p>
-            <p><button type="submit" name="submit">Loogi sisse</button></p>
+            <p><button type="submit" name="submit">Logi sisse</button></p>
             <?php
             if( isset($_GET["error"]) )
             {

@@ -71,7 +71,7 @@ function emailExists($conn, $email)
 
 function createUser($conn, $name, $email, $username, $pwd)
 {
-    $sql = "INSERT INTO users (usersName, usersEmail, usersUid, usersPwd) VALUES (?, ?, ?, ?);";
+    $sql = "INSERT INTO users (usersName, usersEmail, usersUid, usersPwd, rolli) VALUES (?, ?, ?, ?, 0);";
 
     $stmt = mysqli_stmt_init($conn);
 
@@ -154,7 +154,12 @@ function loginUser($conn, $username, $pwd)
         session_start();
         $_SESSION["userid"] = $usernameExists["usersId"];
         $_SESSION["useruid"] = $usernameExists["usersUid"];
-        header("location: ../konkursAdminLeht.php");
+        $_SESSION["rolli"] = $usernameExists["rolli"];
+        if ($_SESSION["rolli"] == 0) {
+            header("Location: ../konkursUserLeht.php");
+        } else {
+            header("Location: ../konkursAdminLeht.php");
+        }
         exit();
     }
 }

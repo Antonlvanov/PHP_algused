@@ -1,7 +1,6 @@
 <?php
 session_start();
 ?>
-
 <!doctype html>
 <html lang="et">
 <head>
@@ -17,19 +16,17 @@ maximum-scale=1.0;">
 <nav class="nav">
     <ul>
         <?php
-        if (isset($_SESSION['useruid'])) {
-            echo '<li><a href="konkursAdminLeht.php">Admin</a></li>';
-        }
-        ?>
-        <li><a href="konkursUserLeht.php">Kasutaja</a></li>
-        <li><a href="konkurss1kaupa.php">Konkursid</a></li>
-        <?php
-        if (!isset($_SESSION['useruid'])) {
+        if (isset($_SESSION['useruid']) && isset($_SESSION['rolli'])) {
+            if ($_SESSION['rolli'] == 1) {
+                echo '<li><a href="konkursAdminLeht.php">Admin</a></li>';
+            } else if ($_SESSION['rolli'] == 0) {
+                echo '<li><a href="konkursUserLeht.php">Kasutaja</a></li>';
+                echo '<li><a href="konkurss1kaupa.php">Konkursid</a></li>';
+            }
+            echo '<li><a href="user_handler/logout.inc.php">Logi välja (' . htmlspecialchars($_SESSION['useruid']) . ')</a></li>';
+        } else {
             echo '<li><a href="login.php">Sisse loogi</a></li>';
             echo '<li><a href="signup.php">Registreeri</a></li>';
-        }
-        else {
-            echo '<li><a href="user_handler/logout.inc.php">Logi välja</a></li>';
         }
         ?>
     </ul>

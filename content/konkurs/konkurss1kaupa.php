@@ -3,6 +3,7 @@ include 'header.php';
 
 //require ('connection/conf2zone.php');
 require('connection/conf.php');
+
 global $yhendus;
 ?>
 <br>
